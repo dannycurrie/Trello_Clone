@@ -1,5 +1,4 @@
-import viewModel from './ViewModel/viewModel.js';
+import viewModel from './ViewModel/view-model.js';
 
 const vm = viewModel(document);
-console.log('vm: ', vm);
-vm.bind();
+vm.bindModel();
