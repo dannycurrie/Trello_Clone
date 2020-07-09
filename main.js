@@ -7,10 +7,10 @@ const mimeTypes = {
   '.js': 'text/javascript',
   '.css': 'text/css',
   '.json': 'application/json',
-}
+};
 
 const app = http.createServer((request, response) => {
-  response.writeHead(200, { "Content-Type": "text/javascript" });
+  response.writeHead(200, { 'Content-Type': 'text/javascript' });
   const filePath = '.' + request.url;
   const extName = path.extname(filePath).toLowerCase();
   const contentType = mimeTypes[extName];
@@ -18,11 +18,11 @@ const app = http.createServer((request, response) => {
   fs.readFile(filePath, (err, content) => {
     if (err) {
       if (err == 'ENOENT') {
-        response.writeHead(404, 'Sorry lad');
+        response.writeHead(404);
         response.end(content, 'utf-8');
       } else {
         console.log(err);
-        response.writeHead(500, 'Sorry lad');
+        response.writeHead(500);
         response.end(content, 'utf-8');
       }
     } else {
