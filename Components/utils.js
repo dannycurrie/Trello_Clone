@@ -10,3 +10,5 @@ export const createElement = (type, options = {}) => {
 
   return element;
 };
+
+export const clearElementChildren = (element) => (element.textContent = '');

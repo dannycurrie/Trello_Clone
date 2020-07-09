@@ -2,27 +2,27 @@ export const cards = [
   {
     id: 'card-bar',
     listId: 'list-foo',
-    text: 'Test Card'
+    text: 'Test Card',
   },
   {
     id: 'card-baz',
     listId: 'list-foo',
-    text: 'Test Card 2'
+    text: 'Test Card 2',
   },
   {
     id: 'card-bav',
     listId: 'list-foo',
-    text: 'Test Card three'
+    text: 'Test Card three',
   },
   {
     id: 'card-barr',
     listId: 'list-bar',
-    text: 'Test Card'
+    text: 'Test Card',
   },
   {
-    id: 'card-bav',
-    listId: 'list0baz',
-    text: 'Test Card three'
+    id: 'card-bavv',
+    listId: 'list-baz',
+    text: 'Test Card three',
   },
 ];
 
