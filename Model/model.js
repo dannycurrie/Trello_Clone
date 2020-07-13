@@ -4,6 +4,7 @@ let idCount = 99;
 
 const invalidate = (item) => ({ ...item, changed: true });
 const validate = (item) => ({ ...item, changed: false });
+const notRemoved = (item) => !item.removed;
 
 const getIdKeyedObject = (arr) =>
   arr.reduce((acc, item) => ({ ...acc, [item.id]: item }), {});
@@ -19,10 +20,12 @@ export default (bindFn) => {
   const returnResource = (key) => {
     const res = store[key];
     if (Array.isArray(res)) {
-      store[key] = res.map(validate);
+      store[key] = res.map(validate).filter(notRemoved);
       return res;
     } else {
-      store[key] = getIdKeyedObject(Object.values(store[key]).map(validate));
+      store[key] = getIdKeyedObject(
+        Object.values(store[key]).map(validate).filter(notRemoved)
+      );
       return Object.values(res);
     }
   };
@@ -37,9 +40,10 @@ export default (bindFn) => {
   };
 
   const update = (type) => (id, data) => {
-    console.log('id, data: ', id, data);
     if (type === 'card') {
-      store.cards[id] = { ...data, edit: false, changed: true };
+      // if no card text, mark the card to be removed
+      if (!data.text) store.cards[id] = { id, changed: true, removed: true };
+      else store.cards[id] = { ...data, edit: false, changed: true };
     }
     notifyUpdate();
   };

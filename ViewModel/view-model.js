@@ -12,12 +12,29 @@ export default () => {
     className: 'lists-container',
     parent: app,
   });
-  const createList = list(listsContainer, model.addCard);
-  const createCard = card(model.updateCard);
+
+  const uiState = {
+    creatingCard: false,
+  };
+
+  const addCardFn = (data) => {
+    if (uiState.creatingCard) {
+      return;
+    }
+    uiState.creatingCard = true;
+    model.addCard(data);
+  };
+
+  const updateCardFn = (id, data) => {
+    uiState.creatingCard = false;
+    model.updateCard(id, data);
+  };
+
+  const createList = list(listsContainer, addCardFn);
+  const createCard = card(updateCardFn);
 
   const createLists = () => {
     const lists = model.lists();
-    console.log('lists: ', lists);
     lists.forEach(createList);
   };
 

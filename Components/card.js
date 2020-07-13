@@ -52,6 +52,10 @@ export default (update) => (card) => {
 
   if (elementExists(card.id)) {
     cardElement = document.querySelector(`#${card.id}`);
+    if (card.removed) {
+      cardElement.remove();
+      return;
+    }
     clearElementChildren(cardElement);
   } else {
     const li = createElement('li', { parent });
