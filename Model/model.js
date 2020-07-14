@@ -9,9 +9,7 @@ const notRemoved = (item) => !item.removed;
 const getIdKeyedObject = (arr) =>
   arr.reduce((acc, item) => ({ ...acc, [item.id]: item }), {});
 
-export default (bindFn) => {
-  const notifyUpdate = () => bindFn();
-
+const model = (notifyUpdate) => {
   const store = {
     cards: getIdKeyedObject(testCards.map(invalidate)),
     lists: testLists.map(invalidate),
@@ -40,10 +38,18 @@ export default (bindFn) => {
   };
 
   const update = (type) => (id, data) => {
+    console.log('update id, data: ', id, data);
     if (type === 'card') {
       // if no card text, mark the card to be removed
-      if (!data.text) store.cards[id] = { id, changed: true, removed: true };
-      else store.cards[id] = { ...data, edit: false, changed: true };
+      if (data.text === '')
+        store.cards[id] = { id, changed: true, removed: true };
+      else
+        store.cards[id] = {
+          ...store.cards[id],
+          ...data,
+          edit: false,
+          changed: true,
+        };
     }
     notifyUpdate();
   };
@@ -54,4 +60,18 @@ export default (bindFn) => {
     addCard,
     updateCard: update('card'),
   };
+};
+
+const observers = [];
+
+const notifyObservers = () => {
+  observers.forEach((ob) => ob());
+};
+
+// instantiate model
+const appModel = model(notifyObservers);
+
+export default (bindFn) => {
+  observers.push(bindFn);
+  return appModel;
 };

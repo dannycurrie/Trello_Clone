@@ -58,7 +58,10 @@ export default (update) => (card) => {
     }
     clearElementChildren(cardElement);
   } else {
-    const li = createElement('li', { parent });
+    const li = createElement('li', { parent, draggable: true });
+    li.addEventListener('dragstart', (ev) => {
+      ev.dataTransfer.setData('text/plain', card.id);
+    });
     cardElement = createElement('div', {
       className: cardClass,
       parent: li,

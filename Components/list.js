@@ -31,7 +31,7 @@ const addBtn = (list, container, addCardToModel) => {
   });
 };
 
-export default (listsContainer, addCardToModel) => (list) => {
+export default (listsContainer, addCardToModel, updateCard) => (list) => {
   if (elementExists(list.id)) return;
 
   const container = createElement('div', {
@@ -56,7 +56,18 @@ export default (listsContainer, addCardToModel) => (list) => {
   });
 
   // list
-  createElement('ul', { id: list.id, parent: container });
+  let ul;
+  const dropHandler = (ev) => {
+    ev.preventDefault();
+    const cardId = event.dataTransfer.getData('text/plain');
+    updateCard(cardId, { listId: list.id });
+  };
+  ul = createElement('ul', {
+    id: list.id,
+    parent: container,
+    ondrop: dropHandler,
+    ondragover: (e) => e.preventDefault(),
+  });
 
   // add card button
   const addContainer = createElement('div', {

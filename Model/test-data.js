@@ -27,7 +27,7 @@ export const cards = [
 ];
 
 export const lists = [
-  { id: 'list-foo', name: 'Test list' },
-  { id: 'list-bar', name: 'Test list two' },
-  { id: 'list-baz', name: 'Test list three' },
+  { id: 'list-foo', name: 'list foo' },
+  { id: 'list-bar', name: 'list bar' },
+  { id: 'list-baz', name: 'list baz' },
 ];

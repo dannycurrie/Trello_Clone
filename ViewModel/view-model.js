@@ -30,7 +30,7 @@ export default () => {
     model.updateCard(id, data);
   };
 
-  const createList = list(listsContainer, addCardFn);
+  const createList = list(listsContainer, addCardFn, updateCardFn);
   const createCard = card(updateCardFn);
 
   const createLists = () => {
