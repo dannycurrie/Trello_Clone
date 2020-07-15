@@ -3,7 +3,7 @@ import { cards as testCards, lists as testLists } from './test-data.js';
 let idCount = 99;
 
 const invalidate = (item) => ({ ...item, changed: true });
-const validate = (item) => ({ ...item, changed: false });
+const validate = (item) => ({ ...item, changed: false, moved: false });
 const notRemoved = (item) => !item.removed;
 
 const getIdKeyedObject = (arr) =>
@@ -16,7 +16,12 @@ const model = (notifyUpdate) => {
   };
 
   const returnResource = (key) => {
+    // get resource to return
     const res = store[key];
+
+    // update resource in store to:
+    // - remove `changed` flags, now that changed resources have been returned
+    // - remove resources flagged to removed
     if (Array.isArray(res)) {
       store[key] = res.map(validate).filter(notRemoved);
       return res;
@@ -24,6 +29,8 @@ const model = (notifyUpdate) => {
       store[key] = getIdKeyedObject(
         Object.values(store[key]).map(validate).filter(notRemoved)
       );
+
+      // return resource
       return Object.values(res);
     }
   };
@@ -38,12 +45,11 @@ const model = (notifyUpdate) => {
   };
 
   const update = (type) => (id, data) => {
-    console.log('update id, data: ', id, data);
     if (type === 'card') {
       // if no card text, mark the card to be removed
-      if (data.text === '')
+      if (data.text === '') {
         store.cards[id] = { id, changed: true, removed: true };
-      else
+      } else
         store.cards[id] = {
           ...store.cards[id],
           ...data,

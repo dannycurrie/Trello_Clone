@@ -34,10 +34,17 @@ const addBtn = (list, container, addCardToModel) => {
 export default (listsContainer, addCardToModel, updateCard) => (list) => {
   if (elementExists(list.id)) return;
 
+  const dropHandler = (ev) => {
+    ev.preventDefault();
+    const cardId = event.dataTransfer.getData('text/plain');
+    updateCard(cardId, { listId: list.id, moved: true });
+  };
   const container = createElement('div', {
     className: 'list-container',
     id: list.id,
     parent: listsContainer,
+    ondrop: dropHandler,
+    ondragover: (e) => e.preventDefault(),
   });
   // header
   const listHeader = createElement('div', {
@@ -56,17 +63,9 @@ export default (listsContainer, addCardToModel, updateCard) => (list) => {
   });
 
   // list
-  let ul;
-  const dropHandler = (ev) => {
-    ev.preventDefault();
-    const cardId = event.dataTransfer.getData('text/plain');
-    updateCard(cardId, { listId: list.id });
-  };
-  ul = createElement('ul', {
+  createElement('ul', {
     id: list.id,
     parent: container,
-    ondrop: dropHandler,
-    ondragover: (e) => e.preventDefault(),
   });
 
   // add card button

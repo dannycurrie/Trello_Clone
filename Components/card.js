@@ -1,4 +1,22 @@
-import { elementExists, createElement, clearElementChildren } from './utils.js';
+import {
+  elementExists,
+  createElement,
+  clearElementChildren,
+  getCardElement,
+  getListElement,
+} from './utils.js';
+
+const cardElement = (id, parent, edit) => {
+  const li = createElement('li', { parent, draggable: true });
+  li.addEventListener('dragstart', (ev) => {
+    ev.dataTransfer.setData('text/plain', id);
+  });
+  return createElement('div', {
+    className: edit ? 'card edit' : 'card',
+    parent: li,
+    id,
+  });
+};
 
 const cardText = (cardElement, text) =>
   createElement('div', { textContent: text, parent: cardElement });
@@ -38,6 +56,11 @@ const cardFooter = (cardElement) => {
   }
 };
 
+const NEW = 'NEW';
+const MOVED = 'MOVED';
+const UPDATED = 'UPDATED';
+const REMOVED = 'REMOVED';
+
 export default (update) => (card) => {
   if (!card.changed) return;
 
@@ -45,33 +68,49 @@ export default (update) => (card) => {
     update(card.id, { ...card, ...newCardData });
   };
 
-  const parent = document.querySelector(`ul#${card.listId} `);
+  const parent = getListElement(card.listId);
 
-  let cardElement;
-  const cardClass = card.edit ? 'card edit' : 'card';
+  let cardState = '';
+  if (!elementExists(card.id)) cardState = NEW;
+  else if (card.moved) cardState = MOVED;
+  else if (card.removed) cardState = REMOVED;
+  else cardState = UPDATED;
 
-  if (elementExists(card.id)) {
-    cardElement = document.querySelector(`#${card.id}`);
-    if (card.removed) {
-      cardElement.remove();
+  let element;
+
+  // GET / CREATE CARD ELEMENT
+  switch (cardState) {
+    case NEW:
+      // create new element
+      element = cardElement(card.id, parent, card.edit);
+      break;
+
+    case MOVED: {
+      // remove existing element and create new element in new location
+      element = getCardElement(card.id);
+      element.remove();
+      element = cardElement(card.id, parent, false);
+      break;
+    }
+
+    case UPDATED: {
+      // clear existing element ready for updated content
+      element = getCardElement(card.id);
+      clearElementChildren(element);
+      break;
+    }
+
+    case REMOVED: {
+      // remove existing element
+      element = getCardElement(card.id);
+      element.remove();
       return;
     }
-    clearElementChildren(cardElement);
-  } else {
-    const li = createElement('li', { parent, draggable: true });
-    li.addEventListener('dragstart', (ev) => {
-      ev.dataTransfer.setData('text/plain', card.id);
-    });
-    cardElement = createElement('div', {
-      className: cardClass,
-      parent: li,
-      id: card.id,
-    });
   }
 
-  if (card.edit) cardInput(cardElement, updateCard);
+  if (card.edit) cardInput(element, updateCard);
   else {
-    cardText(cardElement, card.text);
-    cardFooter(cardElement);
+    cardText(element, card.text);
+    cardFooter(element);
   }
 };

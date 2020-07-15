@@ -1,3 +1,6 @@
+export const getCardElement = (id) => document.querySelector(`#${id}`);
+export const getListElement = (id) => document.querySelector(`ul#${id}`);
+
 export const elementExists = (id) => document.querySelector(`#${id}`) !== null;
 
 export const createElement = (type, options = {}) => {
