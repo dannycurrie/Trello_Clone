@@ -3,6 +3,7 @@ import getModel from '../Model/model.js';
 import { bindKeyElements } from './utils.js';
 import card from '../Components/card.js';
 import list from '../Components/list.js';
+import addListButton from '../Components/add-list-button.js';
 
 export default () => {
   const model = getModel(bindModel);
@@ -15,6 +16,7 @@ export default () => {
 
   const uiState = {
     creatingCard: false,
+    creatingList: false,
   };
 
   const addCardFn = (data) => {
@@ -36,6 +38,8 @@ export default () => {
   const createLists = () => {
     const lists = model.lists();
     lists.forEach(createList);
+    // add list button
+    addListButton(listsContainer, () => console.log('create list'));
   };
 
   const createCards = () => {

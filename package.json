@@ -1,5 +1,8 @@
 {
   "name": "trello-clone-server",
   "version": "1.0.0",
-  "main": "main.js"
+  "main": "main.js",
+  "scripts": {
+    "start": "open -a 'Google Chrome' http://localhost:3000/index.html & node main.js"
+  }
 }

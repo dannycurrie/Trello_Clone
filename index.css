@@ -2,23 +2,24 @@ body {
   background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');
   background-size: cover;
   color: #172b4d;
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans,
+    Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
   font-size: 14px;
 }
 
 #app {
   -webkit-user-select: none;
-    user-select: none;
-    white-space: nowrap;
-    margin-bottom: 8px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding-bottom: 8px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+  user-select: none;
+  white-space: nowrap;
+  margin-bottom: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 8px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .lists-container {
@@ -28,12 +29,12 @@ body {
 }
 
 #app:-webkit-scrollbar-track-piece {
-  background: rgba(0,0,0,.15);
+  background: rgba(0, 0, 0, 0.15);
 }
 
 .list-container {
   min-width: 272px;
-  background-color: #EBECF0;
+  background-color: #ebecf0;
   border-radius: 6px;
   padding: 0px 4px 10px 4px;
   margin: 0 4px;
@@ -51,7 +52,7 @@ body {
   font-weight: 500;
 }
 
-.list-menu{
+.list-menu {
   font-size: large;
 }
 
@@ -63,7 +64,7 @@ ul {
 .card {
   background-color: white;
   border-radius: 3px;
-  box-shadow: 0 1px 0 rgba(9,30,66,.25);
+  box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
   padding: 6px 8px 2px 8px;
   cursor: pointer;
   margin-bottom: 10px;
@@ -97,10 +98,6 @@ ul {
   background-color: lightgray;
 }
 
-.create-button {
-
-}
-
 textarea {
   background: none;
   border: none;
@@ -118,4 +115,25 @@ textarea {
 
 textarea:focus {
   outline: none;
+}
+
+.add-list-btn {
+  min-width: 272px;
+  height: 32px;
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  padding: 4px;
+  margin: 0 4px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+}
+
+.add-list-btn:hover {
+  background-color: rgba(0, 0, 0, 0.16);
+}
+
+.add-list-btn-label {
+  margin-left: 12px;
 }
