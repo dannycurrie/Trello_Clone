@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "start": "open -a 'Google Chrome' http://localhost:3000/index.html & node main.js"
+    "start": "open -a 'Google Chrome' http://localhost:3000/index.html & node main.js",
+    "build": "./build.sh",
+    "deploy": "aws s3 sync build/ s3://trelloclone"
   }
 }
