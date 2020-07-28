@@ -128,6 +128,7 @@ textarea:focus {
   justify-content: flex-start;
   align-items: center;
   cursor: pointer;
+  order: 1;
 }
 
 .add-list-btn:hover {
@@ -136,4 +137,27 @@ textarea:focus {
 
 .add-list-btn-label {
   margin-left: 12px;
+}
+
+.new-list-input-container {
+  width: 100%;
+  height: 100%;
+  background-color: #ebecf0;
+  border-radius: 3px;
+  height: auto;
+  min-height: 32px;
+  padding: 4px;
+  transition: background 85ms ease-in, opacity 40ms ease-in,
+    border-color 85ms ease-in;
+}
+
+.new-list-input {
+  background: #fff;
+  border: none;
+  box-shadow: inset 0 0 0 2px #0079bf;
+  margin: 0;
+  transition: margin 85ms ease-in, background 85ms ease-in;
+  width: 100%;
+  height: 100%;
+  padding: 12px 8px;
 }

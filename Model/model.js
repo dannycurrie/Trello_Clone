@@ -44,6 +44,14 @@ const model = (notifyUpdate) => {
     notifyUpdate();
   };
 
+  const addList = (list) => {
+    list.id = `list-${idCount++}`;
+    list.text = list.text;
+    store.lists = [...store.lists, list];
+    console.log('store.lists: ', store.lists);
+    notifyUpdate();
+  };
+
   const update = (type) => (id, data) => {
     if (type === 'card') {
       // if no card text, mark the card to be removed
@@ -64,6 +72,7 @@ const model = (notifyUpdate) => {
     lists: () => returnResource('lists'),
     cards: () => returnResource('cards'),
     addCard,
+    addList,
     updateCard: update('card'),
   };
 };

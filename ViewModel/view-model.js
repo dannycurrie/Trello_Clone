@@ -16,15 +16,18 @@ export default () => {
 
   const uiState = {
     creatingCard: false,
-    creatingList: false,
+    applicationStarted: false,
   };
 
   const addCardFn = (data) => {
-    if (uiState.creatingCard) {
-      return;
-    }
+    if (uiState.creatingCard) return;
     uiState.creatingCard = true;
     model.addCard(data);
+  };
+
+  const addListFn = (data) => {
+    if (uiState.creatingList) return;
+    model.addList(data);
   };
 
   const updateCardFn = (id, data) => {
@@ -38,8 +41,6 @@ export default () => {
   const createLists = () => {
     const lists = model.lists();
     lists.forEach(createList);
-    // add list button
-    addListButton(listsContainer, () => console.log('create list'));
   };
 
   const createCards = () => {
@@ -50,6 +51,10 @@ export default () => {
   function bindModel() {
     createLists();
     createCards();
+    if (!uiState.applicationStarted) {
+      addListButton(listsContainer, addListFn);
+      uiState.applicationStarted = true;
+    }
   }
 
   return {

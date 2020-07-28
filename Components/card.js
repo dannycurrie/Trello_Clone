@@ -22,7 +22,7 @@ const cardText = (cardElement, text) =>
   createElement('div', { textContent: text, parent: cardElement });
 
 const cardInput = (cardElement, updateCard) => {
-  const cardInput = createElement('div', {
+  const inputContainer = createElement('div', {
     className: 'card-text-edit',
     parent: cardElement,
   });
@@ -30,7 +30,7 @@ const cardInput = (cardElement, updateCard) => {
     dir: 'auto',
     placeholder: 'Enter a title',
     autofocus: true,
-    parent: cardInput,
+    parent: inputContainer,
   });
 
   input.addEventListener('keypress', (e) => {
@@ -40,6 +40,8 @@ const cardInput = (cardElement, updateCard) => {
   input.addEventListener('blur', (e) => {
     updateCard({ text: e.target.value });
   });
+
+  input.focus();
 };
 
 const cardFooter = (cardElement) => {
